@@ -1,21 +1,17 @@
-let productos = new Map([
-  ["manzana", 2.5],
-  ["pan", 3.0],
-  ["leche", 4.5],
-  ["arroz", 5.0],
-  ["huevo", 6.0]
-]);
-let total = 0;
-let seguir = true;
-while (seguir) {
-  let producto = prompt("Ingresa un producto (manzana, pan, leche, arroz, huevo) o 'fin' para terminar:");
-  if (producto === null || producto.toLowerCase() === "fin") {
-    seguir = false;
-  } else if (productos.has(producto.toLowerCase())) {
-    total += productos.get(producto.toLowerCase());
-    console.log(`${producto} agregado. Total parcial: ${total.toFixed(2)}`);
-  } else {
-    console.log("Producto no disponible. Intenta nuevamente.");
-  }
+let productos = new Map([["pan", 2.5], ["leche", 4.2], ["arroz", 3.8], ["huevos", 7.0], ["queso", 5.5]]);
+let lista = "Productos disponibles:\n";
+for (let [nombre, precio] of productos) {
+    lista += `${nombre}: S/.${precio}\n`;
 }
-console.log("Compra finalizada. Total a pagar:", total.toFixed(2));
+console.log(lista);
+let entrada = prompt("Ingresa los productos que deseas comprar separados por comas:");
+let compras = entrada.split(",").map(item => item.trim().toLowerCase());
+let total = 0;
+for (let producto of compras) {
+    if (productos.has(producto)) {
+        total += productos.get(producto);
+    } else {
+        console.log(`El producto "${producto}" no está disponible.`);
+    }
+}
+console.log(`Total: S/.${total.toFixed(2)}`);
